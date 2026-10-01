@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="titulo-aba">Portal de Estudos - Geometria Analítica Avançada</title>
+    <style>
+        * { box-sizing: border-box; }
+        body, html { margin: 0; padding: 0; height: 100%; width: 100%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: hidden; background-color: #f8f9fa; }
+        
+        /* Layout do Site de Estudos */
+        #estudos { display: block; width: 100%; height: 100%; overflow-y: auto; padding: 40px; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; background: #ffffff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 5px solid #0056b3; }
+        h1 { color: #0056b3; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 0; font-size: 28px; }
+        h2 { color: #2c3e50; font-size: 20px; margin-top: 25px; }
+        p { text-align: justify; font-size: 15px; color: #555; }
+        .formula { background: #eef2f7; padding: 15px; border-left: 4px solid #0056b3; font-family: 'Courier New', Courier, monospace; margin: 20px 0; font-weight: bold; font-size: 16px; overflow-x: auto; }
+        
+        /* Tabela Matemática Falsa para Volume */
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f1f3f5; color: #495057; }
+        
+        /* Área Oculta do Jogo */
+        #jogos { display: none; width: 100%; height: 100%; border: none; position: absolute; top: 0; left: 0; z-index: 99999; background: #000; }
+        
+        /* Botão invisível para recuperar o foco do teclado caso necessário */
+        #foco-recuperar { position: absolute; top: -100px; left: -100px; width: 1px; height: 1px; opacity: 0; }
+    </style>
+</head>
+<body>
+
+    <!-- Botão técnico oculto para prender o foco do teclado no site principal -->
+    <input type="text" id="foco-recuperar" readonly>
+
+    <!-- CONTEÚDO VISUAL DE ESTUDOS (O QUE O PROFESSOR VAI VER) -->
+    <div id="estudos">
+        <div class="container">
+            <h1>Módulo IV: Vetores, Matrizes e Sistemas de Coordenadas Ortogonais</h1>
+            <p><strong>Descrição do Curso:</strong> Esta unidade curricular aborda os princípios fundamentais da álgebra linear e geometria analítica vetorial. O foco está na resolução de sistemas complexos no espaço tridimensional ℝ³, aplicando transformações lineares e produtos escalares e vetoriais para engenharia e computação.</p>
+            
+            <h2>1. Definição Algébrica de um Vetor no Espaço ℝ³</h2>
+            <p>Dados dois pontos no espaço cartesiano tridimensional, A(x₁, y₁, z₁) e B(x₂, y₂, z₂), o vetor direcionado determinado por estes pontos é obtido através da diferença de suas coordenadas homólogas. A magnitude ou norma do vetor, denotada por ||v||, representa a distância geométrica euclidiana absoluta entre a origem e sua extremidade extremada.</p>
+            
+            <div class="formula">
+                v = AB = (x₂ - x₁, y₂ - y₁, z₂ - z₁)<br><br>
+                ||v|| = √( (x₂ - x₁)² + (y₂ - y₁)² + (z₂ - z₁)² )
+            </div>
+
+            <h2>2. Tabela de Proporcionalidade Linear e Coeficientes Angulares</h2>
+            <p>Abaixo estruturamos a matriz de equivalência para cálculo vetorial sob diferentes ângulos de incidência teta (θ):</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Vetor Base</th>
+                        <th>Componente X (i)</th>
+                        <th>Componente Y (j)</th>
+                        <th>Componente Z (k)</th>
+                        <th>Produto Escalar (v · w)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Vetor v₁</td>
+                        <td>1.0000</td>
+                        <td>0.0000</td>
+                        <td>-2.5000</td>
+                        <td>Legítimo / Estável</td>
+                    </tr>
+                    <tr>
+                        <td>Vetor v₂</td>
+                        <td>0.7071</td>
+                        <td>0.7071</td>
+                        <td>0.0000</td>
+                        <td>Convergência Alpha</td>
+                    </tr>
+                    <tr>
+                        <td>Vetor v₃</td>
+                        <td>-0.5000</td>
+                        <td>0.8660</td>
+                        <td>1.0000</td>
+                        <td>Ortogonal Padrão</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>3. Exercício Proposto para Fixação</h2>
+            <p>Determine as equações paramétricas da reta <em>r</em> que passa pelo ponto P(2, -1, 3) e é paralela ao vetor diretor v = (1, 4, -2). Calcule subsequentemente a interseção com o plano pi plano XY.</p>
+        </div>
+    </div>
+
+    <!-- O JOGO (Utilizando o site do 2048 como aplicação padrão) -->
+    <iframe id="jogos" src="https://play2048.co"></iframe>
+
+    <!-- SISTEMA JAVASCRIPT DE DETECÇÃO E MASCARAMENTO AUTOMÁTICO -->
+    <script>
+        const telaEstudos = document.getElementById('estudos');
+        const telaJogos = document.getElementById('jogos');
+        const tituloAba = document.getElementById('titulo-aba');
+        const inputFoco = document.getElementById('foco-recuperar');
+
+        // Título fixo que nunca muda no histórico para disfarçar
+        const tituloLegitimo = "Portal de Estudos - Geometria Analítica Avançada";
+        const urlLegitima = "/modulo-geometria-analitica-v4";
+
+        function alternarParaEstudos() {
+            telaEstudos.style.display = 'block';
+            telaJogos.style.display = 'none';
+            tituloAba.innerText = tituloLegitimo;
+            
+            // Mascara a URL na barra e no histórico
+            window.history.replaceState({}, tituloLegitimo, urlLegitima);
+            
+            // Força o navegador a focar na página principal para capturar as teclas
+            window.focus();
+            inputFoco.focus();
+            inputFoco.blur();
+        }
+
+        function alternarParaJogo() {
+            telaEstudos.style.display = 'none';
+            telaJogos.style.display = 'block';
+            tituloAba.innerText = tituloLegitimo;
+            
+            // Mantém a URL falsa mesmo durante o jogo
+            window.history.replaceState({}, tituloLegitimo, urlLegitima);
+        }
+
+        // Monitor de pressionamento de teclas no documento principal
+        document.addEventListener('keydown', function(event) {
+            // Tecla 'j' ou 'J' -> Abre o jogo
+            if (event.key === 'j' || event.key === 'J') {
+                alternarParaJogo();
+            }
+            
+            // Tecla 'Escape' (Esc) -> BOTÃO DE PÂNICO INSTANTÂNEO
+            if (event.key === 'Escape') {
+                alternarParaEstudos();
+            }
+        });
+
+        // Configuração inicial obrigatória ao abrir a página
+        window.addEventListener('DOMContentLoaded', () => {
+            alternarParaEstudos();
+        });
+    </script>
+</body>
+</html>
